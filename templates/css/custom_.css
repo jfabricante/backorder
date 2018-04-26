@@ -1,0 +1,97 @@
+body {
+  padding-top: 50px;
+}
+.center-container {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+.yrp{
+	margin-top: 18px;
+	font-size: 13px;
+}
+
+.btn.btn-flat {
+    border-radius: 0;
+    border-width: 1px;
+    box-shadow: none;
+}
+
+.form-control{
+	border-color: #d2d6de;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.input-group-addon{
+	border-radius: 0;
+	box-shadow: none;
+	font-size: 12px;
+	cursor: pointer;
+}
+/*
+FlOAT THEAD
+*/
+
+.table-wrapper{
+	overflow: auto;
+	padding: 5px;
+	padding-bottom: 0;
+	border: 1px solid #ccc;
+}
+
+.table-wrapper table.table{
+	margin-bottom: 3px;;
+}
+
+.table-wrapper table.table thead{
+	background: #ffffff;
+}
+
+/*
+TABLE
+*/
+
+.table{
+	font-size: 12px;
+}
+
+.table-hover tbody tr {
+	cursor: pointer;
+}
+
+.table thead.text-center th{
+	text-align: center;
+}
+
+
+/*
+NAVBAR
+*/
+
+.navbar-brand img{
+	margin-top: 3px;
+}
+
+/*
+DATETIMEPICKER
+*/
+
+.datepicker .table-condensed>thead>tr>th, 
+.datepicker .table-condensed>tbody>tr>th, 
+.datepicker .table-condensed>tfoot>tr>th, 
+.datepicker .table-condensed>thead>tr>td, 
+.datepicker .table-condensed>tbody>tr>td, 
+.datepicker .table-condensed>tfoot>tr>td {
+	padding: 1px;
+	font-size: 12px;
+}
+
+.bootstrap-datetimepicker-widget td.active, 
+.bootstrap-datetimepicker-widget td.active:hover {
+	
+	background-color: #d9534f;
+    border-color: #d43f3a;
+    color: #fff;
+}
+

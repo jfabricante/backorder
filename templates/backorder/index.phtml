@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="icon" href="../../favicon.ico">
+		<title>Canteen System</title>
+		<!-- Bootstrap core CSS -->
+		<link href="../bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" >
+		<!-- Admin LTE core CSS -->
+		<link href="../AdminLTE-2.3.5/dist/css/AdminLTE.min.css" rel="stylesheet" >
+		<link href="../AdminLTE-2.3.5/dist/css/skins/_all-skins.min.css" rel="stylesheet" >
+		<!-- Custom styles for this template -->
+		<link href="../css/custom.css" rel="stylesheet" >
+		<!-- Data Tables -->
+		<link href="<?php echo base_url('resources/plugins/datatables/datatables.min.css') ?>" rel="stylesheet" >
+		<!-- Font Awesome -->
+		<link href="<?php echo base_url('resources/fonts/font-awesome-4.6.3/css/font-awesome.min.css');?>" rel="stylesheet" >
+		<!-- Custom CSS -->
+		<link href="<?php echo base_url('resources/css/custom.css');?>" rel="stylesheet" >
+			<!-- Bootstrap core JavaScript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<!-- jQuery 3.0.0 -->
+		<script src="<?php echo base_url('resources/js/jquery-3.0.0/jquery.min.js');?>"></script>
+		<!-- Bootstrap 3.3.6 -->
+		<script src="<?php echo base_url('resources/templates/bootstrap-3.3.7/js/bootstrap.min.js');?>"></script>
+		<!-- Data Tables -->
+		<script src="<?php echo base_url('resources/plugins/datatables/datatables.min.js');?>"></script>
+		<!-- Input Mask -->
+		<script src="<?php echo base_url('resources/plugins/input-mask/jquery.inputmask.js'); ?>"></script>
+		<script src="<?php echo base_url('resources/plugins/input-mask/jquery.inputmask.date.extensions.js'); ?>"></script>
+		<!-- Admin LTE app js -->
+		<script src="<?php echo base_url('resources/templates/AdminLTE-2.3.5/dist/js/app.min.js');?>"></script>
+	</head>
+
+	<!-- Body -->
+	<body class="hold-transition skin-red sidebar-mini">
+		<!-- Page wrapper -->
+		<div class="wrapper">
+			<!-- Load page header -->
+			<!-- Main Header -->
+			<header class="main-header">
+
+				<!-- Logo -->
+				<a href="#" class="logo">
+					<!-- mini logo for sidebar mini 50x50 pixels -->
+					<span class="logo-mini"><b>IPC</b></span>
+					<!-- logo for regular state and mobile devices -->
+					<span class="logo-lg"><img src="<?php echo base_url('resources/images/logo_white.png');?>"></span>
+				</a>
+
+				<!-- Header Navbar -->
+				<nav class="navbar navbar-static-top" role="navigation">
+					<!-- Sidebar toggle button-->
+					<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+						<span class="sr-only">Toggle navigation</span>
+					</a>
+
+					<!-- Navbar Right Menu -->
+					<div class="navbar-custom-menu">
+
+						<!-- Navigation Menu -->
+						<ul class="nav navbar-nav">
+							<!-- User Account Menu -->
+							<li class="dropdown user user-menu">
+								<!-- Menu Toggle Button -->
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<!-- The user image in the navbar-->
+									<img src="../images/default.png" class="user-image" alt="User Image">
+									<!-- hidden-xs hides the username on small devices so only the image appears. -->
+									<span class="hidden-xs">Jerome Fabricante</span>
+								</a>
+								<ul class="dropdown-menu">
+									<!-- The user image in the menu -->
+									<li class="user-header">
+										<img src="../images/default.png" class="img-circle" alt="User Image">
+										<p>
+											Jerome Fabricante
+										</p>
+									</li>
+							
+									<!-- Menu Footer-->
+									<li class="user-footer">
+										<div class="pull-left hidden">
+											<a href="#" data-toggle="control-sidebar" class="btn btn-default btn-flat">Profile</a>
+										</div>
+										<div class="pull-right">
+											<a href="#" class="btn btn-default btn-flat">Sign out</a>
+										</div>
+									</li>
+								</ul>
+							</li>
+							<!-- End User Account Menu -->
+						</ul>
+						<!-- End of Navigation Menu -->
+					</div>
+					<!-- Navbar Right Menu -->
+				</nav>
+				<!-- End of Header Navbar -->
+			</header>
+			<!-- Header End -->
+
+
+			<!-- Load sidebar menu -->
+			<!-- Left side column. contains the logo and sidebar -->
+			<aside class="main-sidebar">
+
+				<!-- sidebar: style can be found in sidebar.less -->
+				<section class="sidebar">
+
+					<!-- Sidebar user panel (optional) -->
+					<div class="user-panel">
+						<div class="pull-left image">
+							<img src="<?php echo base_url('resources/images/default.png');?>" class="img-circle" alt="User Image">
+						</div>
+						<div class="pull-left info">
+							<p>Jerome Fabricante</p>
+						</div>
+					</div>
+
+					<!-- Seach form -->
+					<form action="#" method="get" class="sidebar-form">
+						<div class="input-group">
+							<input type="text" name="q" class="form-control" placeholder="Search...">
+							<span class="input-group-btn">
+								<button type="submit" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+								</button>
+							</span>
+						</div>
+					</form>
+
+					<!-- Sidebar Menu -->
+					<ul class="sidebar-menu">
+						<li class="header">MAIN NAVIGATION</li>
+
+
+					</ul><!-- /.sidebar-menu -->
+
+				</section>
+				<!-- /.sidebar -->
+			</aside>
+
+			<!-- Content wrapper -->
+			<div class="content-wrapper">
+				<section class="content-header">
+					<h1>Test</h1>
+				</section>
+
+				<section class="content users">
+					<!-- row -->
+					<div class="row">
+						<!-- col-md-6 -->
+						<div class="col-md-9">
+							<!-- Box danger -->
+							<div class="box box-danger">
+								<!-- Content -->
+								<div class="box-body">
+									<!-- Item table -->
+									<table class="table table-condensed table-striped table-bordered">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>Username</th>
+												<th>Employee no.</th>
+												<th>Fullname</th>
+												<th>User type</th>
+												<th>Edit</th>
+											</tr>
+										</thead>
+
+										<tbody>
+											
+										</tbody>
+									</table>
+									<!-- End of table -->
+								</div>
+								<!-- End of content -->
+							</div>
+							<!-- End of danger -->
+						</div>
+						<!-- End of col-md-6 -->
+					</div>
+					<!-- End of row -->
+				</section>
+
+			</div>
+			<!-- End content wrapper -->
+
+			<!-- Load footer -->
+			<!-- Main Footer -->
+			<footer class="main-footer">
+				<strong>&copy; 2017 <a href="http://www.isuzuphil.com/"> &nbsp; Isuzu Philippines Corporation</a></strong> &nbsp;  All rights reserved.
+			</footer>
+
+		</div>
+		<!-- End page wrapper -->
+
+	</body>
+	<!-- End of body -->
+</html>
