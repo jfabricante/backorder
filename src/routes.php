@@ -44,17 +44,26 @@ $app->post('/store_resource/', function(Request $request, Response $response, ar
 
 	$table = $this->db->table('t_pbo_order_item');
 
-	$updated = array();
+	$not_updated = array();
 
 	foreach($data as $item)
 	{
 		if (isset($item['Po No']) && isset($item['Part Number']) && isset($item['SO No']) && isset($item['New ETA']))
 		{
-			$table->where('order_no', $item['Po No'])->where('part_no', $item['Part Number'])->update(array('eta' => $item['New ETA']));
+			if (!($table->where('order_no', $item['Po No'])->where('part_no', $item['Part Number'])->update(array('eta' => $item['New ETA'])) ))
+			{
+				$not_updated[] = array(
+						'Po No'       => $item['Po No'],
+						'Part Number' => $item['Part Number'],
+						'SO No'       => $item['SO No'],
+						'New ETA'     => $item['New ETA']
+					); 
+			}
 			$limit++;
 		}
 	}
+
 	echo '<pre>';
-	echo 'success!';
+	print_r($not_updated);
 	echo '</pre>';
 });
