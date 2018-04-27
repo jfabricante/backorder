@@ -8,34 +8,18 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 		<link rel="icon" href="../../favicon.ico">
-		<title>Canteen System</title>
+		<title>Back Order Update</title>
 		<!-- Bootstrap core CSS -->
-		<link href="../bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" >
+		<link href="../../resources/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" >
 		<!-- Admin LTE core CSS -->
-		<link href="../AdminLTE-2.3.5/dist/css/AdminLTE.min.css" rel="stylesheet" >
-		<link href="../AdminLTE-2.3.5/dist/css/skins/_all-skins.min.css" rel="stylesheet" >
-		<!-- Custom styles for this template -->
-		<link href="../css/custom.css" rel="stylesheet" >
+		<link href="../../resources/AdminLTE-2.3.5/dist/css/AdminLTE.min.css" rel="stylesheet" >
+		<link href="../../resources/AdminLTE-2.3.5/dist/css/skins/_all-skins.min.css" rel="stylesheet" >
 		<!-- Data Tables -->
-		<link href="<?php echo base_url('resources/plugins/datatables/datatables.min.css') ?>" rel="stylesheet" >
+		<link href="../../resources/plugins/datatables/datatables.min.css" rel="stylesheet" >
 		<!-- Font Awesome -->
-		<link href="<?php echo base_url('resources/fonts/font-awesome-4.6.3/css/font-awesome.min.css');?>" rel="stylesheet" >
+		<link href="../../resources/fonts/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" >
 		<!-- Custom CSS -->
-		<link href="<?php echo base_url('resources/css/custom.css');?>" rel="stylesheet" >
-			<!-- Bootstrap core JavaScript
-		================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
-		<!-- jQuery 3.0.0 -->
-		<script src="<?php echo base_url('resources/js/jquery-3.0.0/jquery.min.js');?>"></script>
-		<!-- Bootstrap 3.3.6 -->
-		<script src="<?php echo base_url('resources/templates/bootstrap-3.3.7/js/bootstrap.min.js');?>"></script>
-		<!-- Data Tables -->
-		<script src="<?php echo base_url('resources/plugins/datatables/datatables.min.js');?>"></script>
-		<!-- Input Mask -->
-		<script src="<?php echo base_url('resources/plugins/input-mask/jquery.inputmask.js'); ?>"></script>
-		<script src="<?php echo base_url('resources/plugins/input-mask/jquery.inputmask.date.extensions.js'); ?>"></script>
-		<!-- Admin LTE app js -->
-		<script src="<?php echo base_url('resources/templates/AdminLTE-2.3.5/dist/js/app.min.js');?>"></script>
+		<link href="../../resources/css/custom.css" rel="stylesheet" >
 	</head>
 
 	<!-- Body -->
@@ -51,7 +35,7 @@
 					<!-- mini logo for sidebar mini 50x50 pixels -->
 					<span class="logo-mini"><b>IPC</b></span>
 					<!-- logo for regular state and mobile devices -->
-					<span class="logo-lg"><img src="<?php echo base_url('resources/images/logo_white.png');?>"></span>
+					<span class="logo-lg"><img src="../../resources/images/logo_white.png"></span>
 				</a>
 
 				<!-- Header Navbar -->
@@ -71,14 +55,14 @@
 								<!-- Menu Toggle Button -->
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 									<!-- The user image in the navbar-->
-									<img src="../images/default.png" class="user-image" alt="User Image">
+									<img src="../../resources/images/default.png" class="user-image" alt="User Image">
 									<!-- hidden-xs hides the username on small devices so only the image appears. -->
 									<span class="hidden-xs">Jerome Fabricante</span>
 								</a>
 								<ul class="dropdown-menu">
 									<!-- The user image in the menu -->
 									<li class="user-header">
-										<img src="../images/default.png" class="img-circle" alt="User Image">
+										<img src="../../resources/images/default.png" class="img-circle" alt="User Image">
 										<p>
 											Jerome Fabricante
 										</p>
@@ -116,7 +100,7 @@
 					<!-- Sidebar user panel (optional) -->
 					<div class="user-panel">
 						<div class="pull-left image">
-							<img src="<?php echo base_url('resources/images/default.png');?>" class="img-circle" alt="User Image">
+							<img src="../../resources/images/default.png" class="img-circle" alt="User Image">
 						</div>
 						<div class="pull-left info">
 							<p>Jerome Fabricante</p>
@@ -138,7 +122,6 @@
 					<ul class="sidebar-menu">
 						<li class="header">MAIN NAVIGATION</li>
 
-
 					</ul><!-- /.sidebar-menu -->
 
 				</section>
@@ -146,35 +129,62 @@
 			</aside>
 
 			<!-- Content wrapper -->
-			<div class="content-wrapper">
+			<div class="content-wrapper" id="app">
 				<section class="content-header">
-					<h1>Test</h1>
+					<h1>Back Order Update</h1>
 				</section>
 
-				<section class="content users">
+				<section class="content">
 					<!-- row -->
 					<div class="row">
 						<!-- col-md-6 -->
-						<div class="col-md-9">
+						<div class="col-md-8">
 							<!-- Box danger -->
 							<div class="box box-danger">
+								<div class="box-header">
+									<!-- <h3 class="box-title">Upload Excel File</h3> -->
+									<form method="post" enctype="multipart/form-data" v-on:submit.prevent="storeResource" role="form" id="form">
+										<div class="row">
+											<!-- file-upload -->
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="file-upload">Upload Spreadsheet</label>
+													<input type="file" name="file-upload" v-model="fileUpload" ref="fileUpload" id="file-upload" accept=".xlsx, .xls, .csv">
+												</div>
+											</div>
+											<!-- ./file-upload -->
+
+											<div class="col-md-2">
+												<div class="form-group">
+													<label> </label>
+													<input type="submit" name="update" value="Update" ref="update" class="btn btn-flat btn-danger form-control">
+												</div>
+											</div>
+
+										</div>
+									</form>
+								</div>
+
 								<!-- Content -->
 								<div class="box-body">
 									<!-- Item table -->
 									<table class="table table-condensed table-striped table-bordered">
 										<thead>
 											<tr>
-												<th>#</th>
-												<th>Username</th>
-												<th>Employee no.</th>
-												<th>Fullname</th>
-												<th>User type</th>
-												<th>Edit</th>
+												<th>SO No</th>
+												<th>Po No</th>
+												<th>Part Number</th>
+												<th>New ETA</th>
 											</tr>
 										</thead>
 
 										<tbody>
-											
+											<tr v-for="(item, index) in excelObject">
+												<td>{{ item['SO No'] }}</td>
+												<td>{{ item['Po No'] }}</td>
+												<td>{{ item['Part Number'] }}</td>
+												<td>{{ item['New ETA'] }}</td>
+											</tr>
 										</tbody>
 									</table>
 									<!-- End of table -->
@@ -188,6 +198,16 @@
 					<!-- End of row -->
 				</section>
 
+				<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="myModal">
+					<div class="modal-dialog modal-sm" role="document">
+						<div class="modal-content">
+							<div class="modal-body">
+								
+							</div>
+						</div>
+					</div>
+				</div>
+
 			</div>
 			<!-- End content wrapper -->
 
@@ -197,6 +217,122 @@
 				<strong>&copy; 2017 <a href="http://www.isuzuphil.com/"> &nbsp; Isuzu Philippines Corporation</a></strong> &nbsp;  All rights reserved.
 			</footer>
 
+			<!-- Bootstrap core JavaScript
+			================================================== -->
+			<!-- Placed at the end of the document so the pages load faster -->
+			<!-- jQuery 3.0.0 -->
+			<script src="../../resources/js/jquery-3.0.0/jquery.min.js"></script>
+			<!-- Bootstrap 3.3.6 -->
+			<script src="../../resources/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+			<!-- Data Tables -->
+			<script src="../../resources/plugins/datatables/datatables.min.js"></script>
+			<!-- Admin LTE app js -->
+			<script src="../../resources/AdminLTE-2.3.5/dist/js/app.min.js"></script>
+			<!-- Axios -->
+			<script src="../../resources/js/axios/axios.min.js"></script>
+			<!-- Vue -->
+			<script src="../../resources/js/vue/vue.min.js"></script>
+			<!-- Lodash -->
+			<script src="../../resources/js/lodash/lodash.js"></script>
+			<!-- CpExcel -->
+			<script src="../../resources/js/js-xlsx/cpexcel.js"></script>
+			<!-- xlsx -->
+			<script src="../../resources/js/js-xlsx/xlsx.js"></script>3
+			<!-- JSZip -->
+			<script src="../../resources/js/js-xlsx/jszip.js"></script>
+			<!-- xlsx -->
+			<script src="../../resources/js/js-xlsx/xlsx.full.min.js"></script>
+
+			<script type="text/javascript">
+				const app = new Vue({
+					el: '#app',
+					data: {
+						excelObject: [],
+						fileUpload: ''
+					},
+					watch: {
+						excelObject: function() {
+							console.log(this.excelObject)
+						}
+					},
+					mounted() {
+						const self = this
+
+						$(this.$refs.fileUpload).on('change', this.filePicked)
+
+						$(this.$refs.update).on('click', this.showModal)
+					},
+					methods: {
+						filePicked: function(oEvent) {
+							// Get The File From The Input
+							var oFile = oEvent.target.files[0];
+
+							// Create A File Reader HTML5
+							var reader = new FileReader();
+
+							// Ready The Event For When A File Gets Selected
+							reader.onload = (e) => {
+								var data = e.target.result;
+								var wb = XLSX.read(data, {type: 'binary'});
+
+								// Get the last sheet on the excel file
+								var sheetName = wb.SheetNames[0]
+
+								// Reset the element of excel object
+								this.excelObject.splice(0, this.excelObject.length)
+
+								// Assign the json values to excelObject
+								this.excelObject.push(XLSX.utils.sheet_to_json(wb.Sheets[sheetName]))
+
+								// Convert it to linear form
+								this.excelObject = _.flatten(this.excelObject)	
+							};
+
+							// Tell JS To Start Reading The File.. You could delay this if desired
+							reader.readAsBinaryString(oFile);
+						},
+						storeResource: function() {
+							axios({
+								url: '/backorder/public/store_resource/',
+								method: 'post',
+								data: this.excelObject,
+							})
+							.then((response) => {
+								console.log(response.data)
+								// Close the modal
+								$('#myModal').modal('hide')
+								/*console.log(response.data)
+
+								if (typeof response.data == 'string')
+								{
+									window.open(appUrl + '/vin_engine/download')
+									location.reload()
+								}
+								else
+								{
+									let objectValues = _.values(response.data)
+
+									alert('Values existed on the resouce ' + objectValues.join(', '))
+								}*/
+								
+							})
+							.catch((error) => {
+								/*$('#myModal').modal('hide')
+								alert('There was no data to process.')*/
+								// your action on error success
+								console.log(error)
+							});
+						},
+						showModal: function() {
+							$("#myModal").modal({backdrop: 'static', keyboard: false})
+
+							$('#myModal').on('shown.bs.modal', function() {
+								$(this).find('.modal-body').html('<img src="../../resources/images/loading.gif" class="img-responsive"/>')
+							});
+						},
+					}
+				});
+			</script>
 		</div>
 		<!-- End page wrapper -->
 
