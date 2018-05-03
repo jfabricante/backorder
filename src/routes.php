@@ -38,19 +38,22 @@ $app->post('/store_resource/', function(Request $request, Response $response, ar
 
 	$data = json_decode(file_get_contents("php://input"), true);
 
-	$total_count = count($data);
-
-	$limit = 0;
-
-	$table = $this->db->table('t_pbo_order_item');
-
 	$not_updated = array();
+
+	$limit = 1;
 
 	foreach($data as $item)
 	{
 		if (isset($item['Po No']) && isset($item['Part Number']) && isset($item['SO No']) && isset($item['New ETA']))
 		{
-			if (!($table->where('order_no', $item['Po No'])->where('part_no', $item['Part Number'])->update(array('eta' => $item['New ETA'])) ))
+
+			$flag = $this->db->table('t_pbo_order_item')->where('order_no', '=', $item['Po No'])->where('part_no', '=', $item['Part Number'])->count();
+
+			if ($flag)
+			{
+				 $this->db->table('t_pbo_order_item')->where('order_no', '=', $item['Po No'])->where('part_no', '=', $item['Part Number'])->update(array('eta' => $item['New ETA']));
+			}
+			else
 			{
 				$not_updated[] = array(
 						'Po No'       => $item['Po No'],
@@ -59,11 +62,8 @@ $app->post('/store_resource/', function(Request $request, Response $response, ar
 						'New ETA'     => $item['New ETA']
 					); 
 			}
-			$limit++;
 		}
 	}
 
-	echo '<pre>';
-	print_r($not_updated);
-	echo '</pre>';
+	echo $not_updated ? json_encode($not_updated) : '';  
 });
