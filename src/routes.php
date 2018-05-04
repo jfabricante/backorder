@@ -60,10 +60,23 @@ $app->post('/store_resource/', function(Request $request, Response $response, ar
 						'Part Number' => $item['Part Number'],
 						'SO No'       => $item['SO No'],
 						'New ETA'     => $item['New ETA']
-					); 
+					);
 			}
 		}
 	}
 
 	echo $not_updated ? json_encode($not_updated) : '';  
+});
+
+
+$app->get('/fetch/', function (Request $request, Response $response, array $args) {
+	// Sample log message
+	$this->logger->info("Slim-Skeleton '/' route");
+
+	echo '<pre>';
+	print_r($this->db->table('t_pbo_order_item')->take(100)->get());
+	echo '</pre>';
+
+	// Render index view
+	// return $this->renderer->render($response, 'backorder/index.phtml', $args);
 });
