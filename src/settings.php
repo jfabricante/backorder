@@ -15,6 +15,7 @@ return [
             'path'  => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
             'level' => \Monolog\Logger::DEBUG,
         ],
+        // Local server credentials
         'db' => [
             'driver'    => 'mysql',
             'host'      => 'localhost',
@@ -25,5 +26,17 @@ return [
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
         ],
+        // Intellexion credentials
+       /* 'db' => [
+            'driver'    => 'mysql',
+            'host'      => '172.16.1.6',
+            'database'  => 'ipcdb',
+            'username'  => 'intellexion',
+            'password'  => 'intellexion',
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+            'port'      => 3309,
+        ],*/
     ],
 ];
