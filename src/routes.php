@@ -24,7 +24,7 @@ $app->get('/test/[{name}]', function (Request $request, Response $response, arra
 	return $this->renderer->render($response, 'index.phtml', $args);
 });
 
-$app->get('/dashboard/', function (Request $request, Response $response, array $args) {
+$app->get('/index/', function (Request $request, Response $response, array $args) {
 	// Sample log message
 	$this->logger->info("Slim-Skeleton '/' route");
 
