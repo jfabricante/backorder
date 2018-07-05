@@ -291,53 +291,73 @@
 								this.excelObject.push(XLSX.utils.sheet_to_json(wb.Sheets[sheetName]))
 
 								// Convert it to linear form
-								this.excelObject = _.flatten(this.excelObject)	
+								this.excelObject = _.flatten(this.excelObject)
+
+								// console.log((_.intersection(Object.keys(this.excelObject[0]), ['SO No', 'Po No', 'Part Number', 'New ETA'])).length)
+
+								// Check if the fields are present in the object
+								if ((_.intersection(Object.keys(this.excelObject[0]), ['SO No', 'Po No', 'Part Number', 'New ETA'])).length !== 4)
+								{
+									// Reset the element of excel object
+									this.excelObject.splice(0, this.excelObject.length)
+								}
 							};
 
 							// Tell JS To Start Reading The File.. You could delay this if desired
 							reader.readAsBinaryString(oFile);
 						},
 						storeResource: function() {
-							axios({
-								url: '/backorder/public/store_resource/',
-								method: 'post',
-								data: this.excelObject,
-							})
-							.then((response) => {
-								// Close the modal
-								$('#myModal').modal('hide')
-								
-								console.log(response.data)
 
-								if (typeof response.data == 'object')
-								{
-									const data = response.data
+							if (this.excelObject.length > 0)
+							{
+								axios({
+									url: '/ipc_central/parts/backorder/public/store_resource/',
+									method: 'post',
+									data: this.excelObject,
+								})
+								.then((response) => {
+									// Close the modal
+									$('#myModal').modal('hide')
+									
+									console.log(response.data)
 
-									// make the worksheet
-									var ws = XLSX.utils.json_to_sheet(data);
+									if (typeof response.data == 'object')
+									{
+										const data = response.data
 
-									// Add to workbook
-									var wb = XLSX.utils.book_new();
-									XLSX.utils.book_append_sheet(wb, ws, "People");
+										// make the worksheet
+										var ws = XLSX.utils.json_to_sheet(data);
 
-									var wbout = XLSX.write(wb, {bookType: 'xlsx', type: 'binary'})
+										// Add to workbook
+										var wb = XLSX.utils.book_new();
+										XLSX.utils.book_append_sheet(wb, ws, "People");
 
-									saveAs(new Blob([this.s2ab(wbout)],{type:"application/octet-stream"}), "not_updated.xlsx");
+										var wbout = XLSX.write(wb, {bookType: 'xlsx', type: 'binary'})
 
-								}
-								else
-								{
+										saveAs(new Blob([this.s2ab(wbout)],{type:"application/octet-stream"}), "not_updated.xlsx");
+
+									}
+									else
+									{
+										alert('Back Order has been updated!');
+									}
+									
+								})
+								.catch((error) => {
+									$('#myModal').modal('hide')
+
 									alert('Invalid file or data');
-								}
-								
-							})
-							.catch((error) => {
+
+									console.log(error)
+								});
+							}
+							else
+							{
 								$('#myModal').modal('hide')
 
-								alert('Invalid file or data');
-
-								console.log(error)
-							});
+								alert("Either there is no data to be process or the file does not match on the standard format.")
+							}
+							
 						},
 						showModal: function() {
 							$("#myModal").modal({backdrop: 'static', keyboard: false})
