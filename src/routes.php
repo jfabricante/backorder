@@ -50,6 +50,9 @@ $app->post('/store_resource/', function(Request $request, Response $response, ar
 	ini_set('memory_limit', '-1');
 	ini_set('max_execution_time', 0);
 
+	// Log Message
+	$this->logger->info("Processing Update");
+
 	$data = json_decode(file_get_contents("php://input"), true);
 
 	$not_updated = array();
