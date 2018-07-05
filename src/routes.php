@@ -57,9 +57,37 @@ $app->post('/store_resource/', function(Request $request, Response $response, ar
 
 	$not_updated = array();
 
-	$limit = 1;
+	if (count($data))
+	{
+		$this->db->table('t_pbo_order_item')->where('eta', '!=', '')->orWhereNull('eta')->update(array('eta' => ''));
 
-	foreach($data as $item)
+		foreach($data as $item)
+		{
+			if (isset($item['Po No']) && isset($item['Part Number']) && isset($item['SO No']) && isset($item['New ETA']))
+			{
+
+				$flag = $this->db->table('t_pbo_order_item')->where('order_no', '=', $item['Po No'])->where('part_no', '=', $item['Part Number'])->count();
+
+				if ($flag)
+				{
+					 $this->db->table('t_pbo_order_item')->where('order_no', '=', $item['Po No'])->where('part_no', '=', $item['Part Number'])->update(array('eta' => $item['New ETA']));
+				}
+				else
+				{
+					$not_updated[] = array(
+							'Po No'       => $item['Po No'],
+							'Part Number' => $item['Part Number'],
+							'SO No'       => $item['SO No'],
+							'New ETA'     => $item['New ETA']
+						);
+				}
+			}
+		}
+	}
+
+	echo $not_updated ? json_encode($not_updated) : '';  
+});
+
 	{
 		if (isset($item['Po No']) && isset($item['Part Number']) && isset($item['SO No']) && isset($item['New ETA']))
 		{
