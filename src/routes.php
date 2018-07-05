@@ -24,6 +24,22 @@ $app->get('/test/[{name}]', function (Request $request, Response $response, arra
 	return $this->renderer->render($response, 'index.phtml', $args);
 });
 
+$app->get('/authenticate/', function (Request $request, Response $response, array $args) {
+
+	$hasCredential = $this->ipc_central->table('user_access_tab')->where('system_id', '=', 41)->where('employee_id', '=', $_SESSION['user_data']['employee_id'])->count();
+
+	if ($hasCredential)
+	{
+		$this->logger->info($_SESSION['user_data']['full_name']);
+		return $response->withRedirect('/ipc_central/parts/backorder/public/index/');
+	}
+	else
+	{
+		$this->logger->info('Unauthorized Access');
+		return $response->withRedirect('/ipc_central/main_home.php');
+	}
+});
+
 $app->get('/index/', function (Request $request, Response $response, array $args) {
 	// Sample log message
 	$this->logger->info("Slim-Skeleton '/' route");
