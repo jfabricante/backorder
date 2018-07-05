@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="icon" href="../../favicon.ico">
+		<title>Minimum Order Update</title>
+		<!-- Bootstrap core CSS -->
+		<link href="../../resources/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" >
+		<!-- Admin LTE core CSS -->
+		<link href="../../resources/AdminLTE-2.3.5/dist/css/AdminLTE.min.css" rel="stylesheet" >
+		<link href="../../resources/AdminLTE-2.3.5/dist/css/skins/_all-skins.min.css" rel="stylesheet" >
+		<!-- Data Tables -->
+		<link href="../../resources/plugins/datatables/datatables.min.css" rel="stylesheet" >
+		<!-- Font Awesome -->
+		<link href="../../resources/fonts/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" >
+		<!-- Custom CSS -->
+		<link href="../../resources/css/custom.css" rel="stylesheet" >
+	</head>
+
+	<!-- Body -->
+	<body class="hold-transition skin-red sidebar-mini">
+		<!-- Page wrapper -->
+		<div class="wrapper">
+			<!-- Load page header -->
+			<!-- Main Header -->
+			<header class="main-header">
+
+				<!-- Logo -->
+				<a href="#" class="logo">
+					<!-- mini logo for sidebar mini 50x50 pixels -->
+					<span class="logo-mini"><b>IPC</b></span>
+					<!-- logo for regular state and mobile devices -->
+					<span class="logo-lg"><img src="../../resources/images/logo_white.png"></span>
+				</a>
+
+				<!-- Header Navbar -->
+				<nav class="navbar navbar-static-top" role="navigation">
+					<!-- Sidebar toggle button-->
+					<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+						<span class="sr-only">Toggle navigation</span>
+					</a>
+
+					<!-- Navbar Right Menu -->
+					<div class="navbar-custom-menu">
+
+						<!-- Navigation Menu -->
+						<ul class="nav navbar-nav">
+							<!-- User Account Menu -->
+							<li class="dropdown user user-menu">
+								<!-- Menu Toggle Button -->
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<!-- The user image in the navbar-->
+									<img src="../../resources/images/default.png" class="user-image" alt="User Image">
+									<!-- hidden-xs hides the username on small devices so only the image appears. -->
+									<span class="hidden-xs"><?php echo ucwords(strtolower($_SESSION['user_data']['full_name'])) ?></span>
+								</a>
+								<ul class="dropdown-menu">
+									<!-- The user image in the menu -->
+									<li class="user-header">
+										<img src="../../resources/images/default.png" class="img-circle" alt="User Image">
+										<p>
+											<?php echo ucwords(strtolower($_SESSION['user_data']['full_name'])) ?>
+										</p>
+									</li>
+							
+									<!-- Menu Footer-->
+									<li class="user-footer">
+										<div class="pull-left hidden">
+											<a href="#" data-toggle="control-sidebar" class="btn btn-default btn-flat">Profile</a>
+										</div>
+										<div class="pull-right">
+											<a href="/ipc_central/parts/backorder/public/logout/" class="btn btn-default btn-flat">Sign out</a>
+										</div>
+									</li>
+								</ul>
+							</li>
+							<!-- End User Account Menu -->
+						</ul>
+						<!-- End of Navigation Menu -->
+					</div>
+					<!-- Navbar Right Menu -->
+				</nav>
+				<!-- End of Header Navbar -->
+			</header>
+			<!-- Header End -->
+
+
+			<!-- Load sidebar menu -->
+			<!-- Left side column. contains the logo and sidebar -->
+			<aside class="main-sidebar">
+
+				<!-- sidebar: style can be found in sidebar.less -->
+				<section class="sidebar">
+
+					<!-- Sidebar user panel (optional) -->
+					<div class="user-panel">
+						<div class="pull-left image">
+							<img src="../../resources/images/default.png" class="img-circle" alt="User Image">
+						</div>
+						<div class="pull-left info">
+							<p><?php echo ucwords(strtolower($_SESSION['user_data']['full_name'])) ?></p>
+						</div>
+					</div>
+
+					<!-- Seach form -->
+					<form action="#" method="get" class="sidebar-form">
+						<div class="input-group">
+							<input type="text" name="q" class="form-control" placeholder="Search...">
+							<span class="input-group-btn">
+								<button type="submit" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+								</button>
+							</span>
+						</div>
+					</form>
+
+					<!-- Sidebar Menu -->
+					<ul class="sidebar-menu">
+						<li class="header">MAIN NAVIGATION</li>
+						<li><a href="/ipc_central/parts/backorder/public/index/"><i class="fa fa-circle-o"></i> <span>Backorder Update</span></a></li>
+						<li class="active"><a href="/ipc_central/parts/backorder/public/minimum_order/"><i class="fa fa-circle-o"></i> <span>Minimum Order</span></a></li>
+						<li class="header">IPC Central</li>
+						<li><a href="../../../../main_home.php"><i class="fa fa-arrow-circle-left"></i> <span>IPC Central Home Page</span></a></li>
+
+					</ul><!-- /.sidebar-menu -->
+
+				</section>
+				<!-- /.sidebar -->
+			</aside>
+
+			<!-- Content wrapper -->
+			<div class="content-wrapper" id="app">
+				<section class="content-header">
+					<h1>Minimum Order Update</h1>
+				</section>
+
+				<section class="content">
+					<!-- row -->
+					<div class="row">
+						<!-- col-md-6 -->
+						<div class="col-md-8">
+							<!-- Box danger -->
+							<div class="box box-danger">
+								<div class="box-header">
+									<!-- <h3 class="box-title">Upload Excel File</h3> -->
+									<form method="post" enctype="multipart/form-data" v-on:submit.prevent="storeResource" role="form" id="form">
+										<div class="row">
+											<!-- file-upload -->
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="file-upload">Upload Spreadsheet</label>
+													<input type="file" name="file-upload" v-model="fileUpload" ref="fileUpload" id="file-upload" accept=".xlsx, .xls, .csv">
+												</div>
+											</div>
+											<!-- ./file-upload -->
+
+											<div class="col-md-2">
+												<div class="form-group">
+													<label> </label>
+													<input type="submit" name="update" value="Update" ref="update" class="btn btn-flat btn-danger form-control">
+												</div>
+											</div>
+
+										</div>
+									</form>
+								</div>
+
+								<!-- Content -->
+								<div class="box-body">
+									<!-- Item table -->
+									<table class="table table-condensed table-striped table-bordered">
+										<thead>
+											<tr>
+												<th>Line No.</th>
+												<th>Part No.</th>
+												<th>Description</th>
+												<th>Standard Pack Qty</th>
+											</tr>
+										</thead>
+
+										<tbody>
+											<tr v-for="(item, index) in excelObject">
+												<td>{{ item['Line No.'] }}</td>
+												<td>{{ item['Part No.'] }}</td>
+												<td>{{ item['Description'] }}</td>
+												<td>{{ item['Standard Pack Qty.'] }}</td>
+											</tr>
+										</tbody>
+									</table>
+									<!-- End of table -->
+								</div>
+								<!-- End of content -->
+							</div>
+							<!-- End of danger -->
+						</div>
+						<!-- End of col-md-6 -->
+					</div>
+					<!-- End of row -->
+				</section>
+
+				<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="myModal">
+					<div class="modal-dialog modal-sm" role="document">
+						<div class="modal-content">
+							<div class="modal-body">
+								
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!-- End content wrapper -->
+
+			<!-- Load footer -->
+			<!-- Main Footer -->
+			<footer class="main-footer">
+				<strong>&copy; 2017 <a href="http://www.isuzuphil.com/"> &nbsp; Isuzu Philippines Corporation</a></strong> &nbsp;  All rights reserved.
+			</footer>
+
+			<!-- Bootstrap core JavaScript
+			================================================== -->
+			<!-- Placed at the end of the document so the pages load faster -->
+			<!-- jQuery 3.0.0 -->
+			<script src="../../resources/js/jquery-3.0.0/jquery.min.js"></script>
+			<!-- Bootstrap 3.3.6 -->
+			<script src="../../resources/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+			<!-- Data Tables -->
+			<script src="../../resources/plugins/datatables/datatables.min.js"></script>
+			<!-- Admin LTE app js -->
+			<script src="../../resources/AdminLTE-2.3.5/dist/js/app.min.js"></script>
+			<!-- Axios -->
+			<script src="../../resources/js/axios/axios.min.js"></script>
+			<!-- Vue -->
+			<script src="../../resources/js/vue/vue.min.js"></script>
+			<!-- Lodash -->
+			<script src="../../resources/js/lodash/lodash.js"></script>
+			<!-- CpExcel -->
+			<script src="../../resources/js/js-xlsx/cpexcel.js"></script>
+			<!-- xlsx -->
+			<script src="../../resources/js/js-xlsx/xlsx.js"></script>3
+			<!-- JSZip -->
+			<script src="../../resources/js/js-xlsx/jszip.js"></script>
+			<!-- Xlsx -->
+			<script src="../../resources/js/js-xlsx/xlsx.full.min.js"></script>
+			<!-- File saver -->
+			<script src="../../resources/js/file-saver/src/FileSaver2.js"></script>
+
+			<script type="text/javascript">
+				const app = new Vue({
+					el: '#app',
+					data: {
+						excelObject: [],
+						fileUpload: ''
+					},
+					watch: {
+						excelObject: function() {
+							console.log(this.excelObject)
+						}
+					},
+					mounted() {
+						const self = this
+
+						$(this.$refs.fileUpload).on('change', this.filePicked)
+
+						$(this.$refs.update).on('click', this.showModal)
+					},
+					methods: {
+						filePicked: function(oEvent) {
+							// Get The File From The Input
+							var oFile = oEvent.target.files[0];
+
+							// Create A File Reader HTML5
+							var reader = new FileReader();
+
+							// Ready The Event For When A File Gets Selected
+							reader.onload = (e) => {
+								var data = e.target.result;
+								var wb = XLSX.read(data, {type: 'binary'});
+
+								// Get the first sheet on the excel file
+								var sheetName = wb.SheetNames[0]
+
+								// Reset the element of excel object
+								this.excelObject.splice(0, this.excelObject.length)
+
+								// Assign the json values to excelObject
+								this.excelObject.push(XLSX.utils.sheet_to_json(wb.Sheets[sheetName]))
+
+								// Convert it to linear form
+								this.excelObject = _.flatten(this.excelObject)
+
+								// Check if the fields are present in the object
+								if ((_.difference(Object.keys(this.excelObject[0]), ['Line No.', 'Part No.', 'Description', 'Standard Pack Qty.'])).length > 0)
+								{
+									// Reset the element of excel object
+									this.excelObject.splice(0, this.excelObject.length)
+								}
+							};
+
+							// Tell JS To Start Reading The File.. You could delay this if desired
+							reader.readAsBinaryString(oFile);
+						},
+						storeResource: function() {
+
+							if (this.excelObject.length > 0)
+							{
+								axios({
+									url: '/ipc_central/parts/backorder/public/store_min_order/',
+									method: 'post',
+									data: this.excelObject,
+								})
+								.then((response) => {
+									// Close the modal
+									$('#myModal').modal('hide')
+									
+									console.log(response.data)
+
+									if (typeof response.data == 'object')
+									{
+										const data = response.data
+
+										// make the worksheet
+										var ws = XLSX.utils.json_to_sheet(data);
+
+										// Add to workbook
+										var wb = XLSX.utils.book_new();
+										XLSX.utils.book_append_sheet(wb, ws, "People");
+
+										var wbout = XLSX.write(wb, {bookType: 'xlsx', type: 'binary'})
+
+										saveAs(new Blob([this.s2ab(wbout)],{type:"application/octet-stream"}), "not_exist.xlsx");
+									}
+									else
+									{
+										alert('Update uploaded successfully!');
+									}
+									
+								})
+								.catch((error) => {
+									$('#myModal').modal('hide')
+
+									alert('Invalid file or data');
+
+									console.log(error)
+								});
+							}
+							else
+							{
+								$('#myModal').modal('hide')
+
+								alert("Either there is no data to be process or the file does not match on the standard format.")
+							}
+							
+						},
+						showModal: function() {
+							$("#myModal").modal({backdrop: 'static', keyboard: false})
+
+							$('#myModal').on('shown.bs.modal', function() {
+								$(this).find('.modal-body').html('<img src="../../resources/images/loading.gif" class="img-responsive"/>')
+							});
+						},
+						s2ab: function(s) {
+							var buf = new ArrayBuffer(s.length);
+							var view = new Uint8Array(buf);
+							for (var i=0; i!=s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+							return buf;
+						},
+					}
+				});
+			</script>
+		</div>
+		<!-- End page wrapper -->
+
+	</body>
+	<!-- End of body -->
+</html>
