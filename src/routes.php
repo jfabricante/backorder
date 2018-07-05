@@ -139,6 +139,11 @@ $app->post('/store_min_order/', function(Request $request, Response $response, a
 
 	echo $not_exist ? json_encode($not_exist) : '';
 });
+
+$app->get('/logout/', function (Request $request, Response $response, array $args) {
+	session_destroy();
+	
+	return $response->withRedirect('/ipc_central/main_home.php');
 });
 
 
