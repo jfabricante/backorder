@@ -28,3 +28,15 @@ $container['db'] = function($container) {
 
 	return $capsule;
 };
+
+// IPC Central
+$container['ipc_central'] = function($container) {
+    $capsule = new \Illuminate\Database\Capsule\Manager;
+    $capsule->addConnection($container['settings']['ipc_central']);
+
+    $capsule->setAsGlobal();
+    $capsule->bootEloquent();
+
+    return $capsule;
+};
+
