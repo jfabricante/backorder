@@ -88,6 +88,12 @@ $app->post('/store_resource/', function(Request $request, Response $response, ar
 	echo $not_updated ? json_encode($not_updated) : '';  
 });
 
+$app->get('/minimum_order/', function(Request $request, Response $response, array $args) {
+	$this->logger->info('Minimum order form');
+
+	return $this->renderer->render($response, 'backorder/minimum_order.phtml', $args);
+});
+
 	{
 		if (isset($item['Po No']) && isset($item['Part Number']) && isset($item['SO No']) && isset($item['New ETA']))
 		{
