@@ -41,8 +41,6 @@ $app->get('/authenticate/', function (Request $request, Response $response, arra
 });
 
 $app->get('/index/', function (Request $request, Response $response, array $args) {
-	// Sample log message
-	$this->logger->info("Slim-Skeleton '/' route");
 
 	// Render index view
 	return $this->renderer->render($response, 'backorder/index.phtml', $args);
