@@ -94,29 +94,51 @@ $app->get('/minimum_order/', function(Request $request, Response $response, arra
 	return $this->renderer->render($response, 'backorder/minimum_order.phtml', $args);
 });
 
+$app->post('/store_min_order/', function(Request $request, Response $response, array $args) {
+	$this->logger->info('Process minimum order');
+
+	ini_set('memory_limit', '-1');
+	ini_set('max_execution_time', 0);
+
+	$data = json_decode(file_get_contents("php://input"), true);
+
+	$not_exist = array();
+
+	foreach ($data as $item)
 	{
-		if (isset($item['Po No']) && isset($item['Part Number']) && isset($item['SO No']) && isset($item['New ETA']))
+		$parts = $this->db->table('t_pbo_parts')->where('part_no', '=', $item['Part No.'])->first();
+
+		// Verify if the item exist in the parts table
+		if (count($parts))
 		{
 
-			$flag = $this->db->table('t_pbo_order_item')->where('order_no', '=', $item['Po No'])->where('part_no', '=', $item['Part Number'])->count();
+			$hasDiscount = $this->db->table('t_pbo_parts_discount')->where('part_no', '=', $item['Part No.'])->count();
 
-			if ($flag)
+			if ($hasDiscount)
 			{
-				 $this->db->table('t_pbo_order_item')->where('order_no', '=', $item['Po No'])->where('part_no', '=', $item['Part Number'])->update(array('eta' => $item['New ETA']));
+
+				$this->db->table('t_pbo_parts_discount')->where('id', '=', $parts->id)->update(array('min_order_qty' => $item['Standard Pack Qty.']));
 			}
 			else
 			{
-				$not_updated[] = array(
-						'Po No'       => $item['Po No'],
-						'Part Number' => $item['Part Number'],
-						'SO No'       => $item['SO No'],
-						'New ETA'     => $item['New ETA']
+				// Prepare data
+				$config = array(
+						'id'            => $parts->id,
+						'part_no'       => $item['Part No.'],
+						'min_order_qty' => $item['Standard Pack Qty.']
 					);
+
+				$this->db->table('t_pbo_parts_discount')->insert($config);
 			}
+		}
+		else
+		{
+			array_push($not_exist, $item);
 		}
 	}
 
-	echo $not_updated ? json_encode($not_updated) : '';  
+	echo $not_exist ? json_encode($not_exist) : '';
+});
 });
 
 
